@@ -7,50 +7,59 @@
     <title>MM - Random Utils</title>
     <link rel="stylesheet" href="./css/final.css">
 </head>
+
 <body>
-    <nav class="py-10"></nav>
-    <main class="w-1/2 m-auto">
+    <nav class="py-2 md:py-10"></nav>
+    <main class="md:w-1/2 p-2 m-auto">
         <section class="p-4 space-y-4">
-            <h1 class="text-4xl font-bold">Colors, HEX to RGB %</h1>
-            <div>
-                <div class="text-xl">
-                    <label class="block font-semibold" for="i_hex">HEX</label>
-                    <input id="i-hex" class="border-2 rounded" type="text" name="i_hex" minlength="6" maxlength="7">
+            <h1 class="text-2xl md:text-4xl font-bold">Colors, HEX to RGB %</h1>
+            <div class="space-y-3">
+                <div>
+                    <label class="block font-semibold text-lg md:text-xl" for="i_hex">HEX code</label>
+                    <input id="i-hex" class="border-2 rounded p-2 w-full md:text-lg" type="text" name="i_hex" placeholder="ex: #FF99ff" minlength="6" maxlength="7">
                 </div>
-                <div class="text-xl mt-2">
-                    <span class="block font-semibold">RGB raw values</span>
-                    <div class="grid grid-cols-3 grid-flow-row">
-                        <div>
+                <div class="font-semibold">
+                    <span class="block text-lg md:text-xl">RGB values</span>
+                    <div class="grid grid-cols-3 gap-4 grid-flow-row md:text-lg">
+                        <div class="red-rgb">
                             R: <span name="rgb_raw">0</span>
                         </div>
-                        <div>
+                        <div class="green-rgb">
                             G: <span name="rgb_raw">0</span>
                         </div>
-                        <div>
+                        <div class="blue-rgb">
                             B: <span name="rgb_raw">0</span>
                         </div>
                     </div>
                 </div>
-                <div class="text-xl mt-2">
-                    <span class="block font-semibold">RGB % values</span>
-                    <div class="grid grid-cols-3 grid-flow-row">
-                        <div>
+                <div class="font-semibold">
+                    <span class="block text-lg md:text-xl">RGB values in %</span>
+                    <div class="grid grid-cols-3 gap-4 grid-flow-row md:text-lg">
+                        <div class="red-rgb">
                             R: <span name="rgb_per">0%</span>
                         </div>
-                        <div>
+                        <div class="green-rgb">
                             G: <span name="rgb_per">0%</span>
                         </div>
-                        <div>
+                        <div class="blue-rgb">
                             B: <span name="rgb_per">0%</span>
-                        </div>
-                        <div class="col-span-3 text-center">
-                                (<span name="rgb_comp_per">0.0f</span>, <span name="rgb_comp_per">0.0f</span>, <span name="rgb_comp_per">0.0f</span>)<br>
-                                <small class="text-sm">C++ OpenGL Ready</small>
                         </div>
                     </div>
                 </div>
-                <div class="text-xl font-semibold mt-6">
-                    <span class="block">COLOR PREVIEW</span>
+                <div>
+                    <span class="text-lg md:text-xl font-semibold block mb-1">Ready for C++ OpenGL</span>
+                    <span id="color3f-code" class="md:text-lg block md:inline-block">
+                        glColor3f(<span name="rgb_comp_per">0.0f</span>, <span name="rgb_comp_per">0.0f</span>, <span name="rgb_comp_per">0.0f</span>);
+                    </span>
+                    <button id="copy-color3f-code-btn" class="relative mt-2 md:mt-0 md:ml-2 py-1 px-4 rounded bg-sky-800 text-white shadow text-sm">
+                        Copy to clipboard
+                        <span id="clipboard-tooltip" class="absolute clipboard-tooltip">
+                            Copied
+                        </span>
+                    </button>
+                </div>
+                <div>
+                    <span class="block text-xl font-semibold">COLOR PREVIEW</span>
                     <div id="color-preview" class="w-full border-2 rounded border-black h-28"></div>
                 </div>
             </div>
