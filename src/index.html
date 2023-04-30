@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MM - Random Utils</title>
+    <link rel="stylesheet" href="./css/final.css">
+</head>
+<body>
+    <nav class="py-10"></nav>
+    <main class="w-1/2 m-auto">
+        <section class="p-4 space-y-4">
+            <h1 class="text-4xl font-bold">Colors, HEX to RGB %</h1>
+            <div>
+                <div class="text-xl">
+                    <label class="block font-semibold" for="i_hex">HEX</label>
+                    <input id="i-hex" class="border-2 rounded" type="text" name="i_hex" minlength="6" maxlength="7">
+                </div>
+                <div class="text-xl mt-2">
+                    <span class="block font-semibold">RGB raw values</span>
+                    <div class="grid grid-cols-3 grid-flow-row">
+                        <div>
+                            R: <span name="rgb_raw">0</span>
+                        </div>
+                        <div>
+                            G: <span name="rgb_raw">0</span>
+                        </div>
+                        <div>
+                            B: <span name="rgb_raw">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xl mt-2">
+                    <span class="block font-semibold">RGB % values</span>
+                    <div class="grid grid-cols-3 grid-flow-row">
+                        <div>
+                            R: <span name="rgb_per">0%</span>
+                        </div>
+                        <div>
+                            G: <span name="rgb_per">0%</span>
+                        </div>
+                        <div>
+                            B: <span name="rgb_per">0%</span>
+                        </div>
+                        <div class="col-span-3 text-center">
+                                (<span name="rgb_comp_per">0.0f</span>, <span name="rgb_comp_per">0.0f</span>, <span name="rgb_comp_per">0.0f</span>)<br>
+                                <small class="text-sm">C++ OpenGL Ready</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xl font-semibold mt-6">
+                    <span class="block">COLOR PREVIEW</span>
+                    <div id="color-preview" class="w-full border-2 rounded border-black h-28"></div>
+                </div>
+            </div>
+            <script src="js/hex_rgb_per.js"></script>
+        </section>
+    </main>
+
+    
+</body>
+</html>
