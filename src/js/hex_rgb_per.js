@@ -25,7 +25,7 @@ hexInput.addEventListener("input", (event) => {
     const target = event.target;
     let value = target.value;
 
-    if (strValue === "") {
+    if (value === "") {
         target.classList.remove("border-green-700");
         target.classList.remove("border-red-700");
         resetElements();
