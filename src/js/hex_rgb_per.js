@@ -12,20 +12,30 @@ let tooltipClipboardTimeout;
 
 hexInput.value = ""; // reset on refresh
 
+function resetElements() {
+    for (let i = 0; i < 3; i++) {
+    
+        rgbRawElements[i].innerText = "0";
+        rgbPerElements[i].innerText = "0%";
+        rgbPerCompElements[i].innerText = "0.0f";
+    }
+}
+
 hexInput.addEventListener("input", (event) => {
     const target = event.target;
     let value = target.value;
 
+    if (strValue === "") {
+        target.classList.remove("border-green-700");
+        target.classList.remove("border-red-700");
+        resetElements();
+        return;
+    } 
+
     if (!HEX_REGEX.test(value)) {
         target.classList.remove("border-green-700");
         target.classList.add("border-red-700");
-
-        for (let i = 0; i < 3; i++) {
-    
-            rgbRawElements[i].innerText = "0";
-            rgbPerElements[i].innerText = "0%";
-            rgbPerCompElements[i].innerText = "0.0f";
-        }
+        resetElements();
         return;
     }
 
