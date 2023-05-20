@@ -29,6 +29,7 @@ hexInput.addEventListener("input", (event) => {
         target.classList.remove("border-green-700");
         target.classList.remove("border-red-700");
         resetElements();
+        colorPreview.style.backgroundColor = "";
         return;
     } 
 
