@@ -2,6 +2,7 @@
     import {onMount} from "svelte";
     import {copyToClipboardBtnText} from "$lib/utils";
     import Icon from "@iconify/svelte";
+    import {flip} from "svelte/animate";
 
     type HistoryPrices = {
         finalPrice: string;
@@ -23,12 +24,21 @@
     function calculatePrice() {
         const numPrice = Number(price);
         const numTax = Number(taxAmount);
+        const errorElement = document.getElementById("ivacalc_error");
 
-        if (isNaN(numPrice) || isNaN(numTax) || numPrice <= 0) {
+        if (!errorElement) {
+            console.error("Something went wrong fetching 'ivacalc_error'...");
             return;
         }
 
-        const totalTax: number = numPrice - numPrice * (numTax / 100);
+        if (isNaN(numPrice) || isNaN(numTax) || numPrice <= 0 || numTax <= 0 || numTax > 100) {
+            errorElement.classList.remove("hidden");
+            return;
+        }
+
+        errorElement.classList.add("hidden");
+
+        const totalTax: number = numPrice - numPrice / (numTax / 100 + 1);
         const finalPrice: number = numPrice - totalTax;
 
         history.unshift({
@@ -63,18 +73,23 @@
                 <label class="block font-semibold" for="ivacalc_price">
                     Price with VAT
                 </label>
-                <input id="ivacalc_price" type="text" class="border-2 rounded p-1" placeholder="example: 59.99" step="0.01" bind:value={price} onkeyup={changeCommaToDotEvent}/>
+                <input id="ivacalc_price" type="text" class="border-2 rounded p-1" placeholder="example: 59.99" step="0.01" bind:value={price} onkeyup={changeCommaToDotEvent} min="0" autocomplete={null}/>
             </div>
             <div>
                 <label class="block font-semibold" for="ivacalc_tax">
                     VAT amount <small>(%)</small>
                 </label>
-                <input id="ivacalc_tax" type="text" class="border-2 rounded p-1" placeholder="23" step="0.01" bind:value={taxAmount} onkeyup={changeCommaToDotEvent}/>
+                <input id="ivacalc_tax" type="text" class="border-2 rounded p-1" placeholder="23" step="0.01" bind:value={taxAmount} onkeyup={changeCommaToDotEvent} max="100" min="0" autocomplete={null}/>
             </div>
         </div>
-        <button type="submit" class="bg-blue-200 text-blue-950 hover:bg-blue-300 duration-300 py-2 px-4 rounded mt-4 font-bold text-sm">
-            Calculate
-        </button>
+        <div class="flex gap-4 items-center mt-4 ">
+            <button type="submit" class="bg-blue-200 text-blue-950 hover:bg-blue-300 duration-300 py-2 px-4 rounded font-bold text-sm">
+                Calculate
+            </button>
+            <p id="ivacalc_error" class="text-red-600 hidden">
+                Invalid values
+            </p>
+        </div>
     </form>
     <div class="min-w-0">
         <div class="flex gap-4 items-center mb-2 justify-between">
@@ -87,8 +102,8 @@
         </div>
         <div id="ivacalc_history" class="border-2 rounded p-4 flex gap-8 overflow-x-scroll h-28">
             {#if history.length > 0}
-                {#each history as h, idx}
-                    <div id="ivacalc_history_reg_{idx}" class="rounded text-white leading-none min-w-36 relative group">
+                {#each history as h, idx (h)}
+                    <div id="ivacalc_history_reg_{idx}" class="rounded text-white leading-none min-w-36 relative group" animate:flip={{duration: 650}}>
                         <button type="button" class="absolute right-0 h-[96%] translate-x-[94%] text-black px-1 bg-red-500 hover:bg-red-700 duration-300 rounded-r z-10 group-hover:block hidden"
                             onclick={() => deleteItemAt(idx)}>
                             <Icon icon="tabler:trash" class="text-white size-5"/>
